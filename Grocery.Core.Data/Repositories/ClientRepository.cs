@@ -33,5 +33,22 @@ namespace Grocery.Core.Data.Repositories
         {
             return clientList;
         }
+
+        public void Add(Client client)
+        {
+            if (clientList.Any(x => x.Id == client.Id))
+            {
+                throw new ClientAlreadyExistsException();
+            }
+
+            clientList.Add(client);
+        }
+    }
+
+    public class ClientAlreadyExistsException : Exception
+    {
+        public ClientAlreadyExistsException() {}
+
+        public ClientAlreadyExistsException(string message) : base(message) {}
     }
 }
